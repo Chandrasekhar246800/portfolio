@@ -18,7 +18,7 @@ export function MagneticButton({
   return (
     <motion.div
       ref={ref}
-      style={reduceMotion ? undefined : { x: sx, y: sy }}
+      style={{ x: sx, y: sy }}
       onMouseMove={(e) => {
         if (reduceMotion) return;
         const r = ref.current?.getBoundingClientRect();

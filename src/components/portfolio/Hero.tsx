@@ -77,7 +77,10 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 
 function Particles() {
   const ref = useRef<HTMLCanvasElement>(null);
+  const reduceMotion = useReducedMotion();
+
   useEffect(() => {
+    if (reduceMotion) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -178,7 +181,7 @@ function Particles() {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeave);
     };
-  }, []);
+  }, [reduceMotion]);
   return <canvas ref={ref} className="absolute inset-0 h-full w-full" aria-hidden="true" />;
 }
 
@@ -205,11 +208,10 @@ export function Hero() {
     <section id="home" className="relative isolate min-h-dvh overflow-hidden pt-28">
       {/* Background layers */}
       <div className="absolute inset-0 -z-30 grid-bg" />
-      <div className="absolute inset-0 -z-20">{!reduceMotion && <Particles />}</div>
-      <motion.div
-        style={reduceMotion ? undefined : { x: tx, y: ty }}
-        className="absolute inset-0 -z-10"
-      >
+      <div className="absolute inset-0 -z-20">
+        <Particles />
+      </div>
+      <motion.div style={{ x: tx, y: ty }} className="absolute inset-0 -z-10">
         <div className="aurora" />
       </motion.div>
       <div className="noise -z-10" />

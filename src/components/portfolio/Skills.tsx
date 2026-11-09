@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { Section } from "./Section";
 import { MOTION } from "@/lib/portfolio";
 
@@ -40,28 +41,47 @@ const GROUPS = [
   },
 ];
 
-const MARQUEE = [
+const MARQUEE_ITEMS = [
   "React",
   "Next.js",
   "TypeScript",
+  "JavaScript",
   "Node.js",
+  "Express.js",
   "MongoDB",
-  "Tailwind",
-  "Framer Motion",
-  "GSAP",
-  "Express",
   "PostgreSQL",
-  "Python",
+  "MySQL",
+  "SQL",
+  "Tailwind CSS",
+  "Framer Motion",
+  "Motion v12",
+  "Shadcn UI",
   "Java",
+  "Python",
+  "C / C++",
+  "Docker",
   "Git",
+  "GitHub",
+  "REST APIs",
+  "JWT Auth",
+  "Postman",
+  "VS Code",
   "Figma",
   "Vercel",
-  "Shadcn",
-  "REST",
-  "JWT",
+  "TanStack Start",
+  "TanStack Router",
 ];
 
 export function Skills() {
+  const reduceMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isReduced = mounted && reduceMotion;
+
   return (
     <Section
       id="skills"
@@ -103,22 +123,53 @@ export function Skills() {
         ))}
       </div>
 
-      {/* Marquee */}
-      <div
-        className="relative mt-12 overflow-hidden rounded-[var(--radius-2xl)] glass py-5"
-        style={{
-          maskImage: "linear-gradient(90deg, transparent, black 12%, black 88%, transparent)",
-        }}
-      >
-        <div className="flex w-max animate-marquee gap-10 whitespace-nowrap px-6 font-mono text-sm text-muted-foreground">
-          {[...MARQUEE, ...MARQUEE].map((t, i) => (
-            <span key={i} className="flex items-center gap-10">
-              {t}
-              <span className="h-1 w-1 rounded-full bg-accent/60" />
-            </span>
-          ))}
+      {/* Marquee Skills Ticker Ribbon */}
+      {isReduced ? (
+        <div className="relative mt-12 overflow-hidden rounded-[var(--radius-2xl)] glass p-6">
+          <div className="mb-3 text-center font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            Core Technologies & Tooling
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {MARQUEE_ITEMS.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-lg border border-border/70 bg-surface/60 px-3 py-1 font-mono text-xs font-medium text-foreground/90 backdrop-blur-sm"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className="group relative mt-12 overflow-hidden rounded-[var(--radius-2xl)] glass py-5"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+          }}
+        >
+          {/* Edge gradient fade masks */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background via-background/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background via-background/60 to-transparent" />
+
+          {/* Scrolling ticker track */}
+          <div className="flex w-max flex-nowrap overflow-hidden">
+            <div className="flex min-w-max shrink-0 animate-marquee items-center gap-8 pr-8 font-mono text-sm text-muted-foreground transition-all duration-300 hover:[animation-play-state:paused] group-hover:[animation-play-state:paused]">
+              {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((tech, i) => (
+                <span
+                  key={`${tech}-${i}`}
+                  className="flex items-center gap-8 transition-colors duration-200 hover:text-foreground cursor-default"
+                >
+                  <span>{tech}</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </Section>
   );
 }

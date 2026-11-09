@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, MotionConfig, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, MotionConfig } from "motion/react";
 import { Section } from "./Section";
 import { MOTION } from "@/lib/portfolio";
 
@@ -73,8 +73,6 @@ const ALL_SKILLS = [
 ];
 
 export function Skills() {
-  const reduceMotion = useReducedMotion();
-  const [manualScroll, setManualScroll] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => {
@@ -126,74 +124,39 @@ export function Skills() {
         ))}
       </div>
 
-      {/* Single-Line Continuous Horizontal Auto-Scrolling Marquee Ribbon */}
-      <div className="relative mt-12 w-full">
-        {manualScroll ? (
-          <div className="w-full overflow-x-auto rounded-[var(--radius-2xl)] glass px-4 py-5 [scrollbar-width:thin]">
-            <div className="flex flex-nowrap shrink-0 items-center gap-4 whitespace-nowrap">
-              {ALL_SKILLS.map((skill) => (
-                <div
-                  key={skill}
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs md:text-sm text-zinc-300 backdrop-blur-sm transition-colors hover:border-primary/50 hover:bg-primary/10"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
-                  <span>{skill}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div
-            className="group relative w-full overflow-hidden rounded-[var(--radius-2xl)] glass py-5 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+      {/* Pure Infinite Continuous Horizontal Auto-Scrolling Marquee Ribbon */}
+      <div
+        className="group relative mt-12 w-full overflow-hidden rounded-[var(--radius-2xl)] glass py-5 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Left and right atmospheric edge gradient masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background via-background/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background via-background/60 to-transparent" />
+
+        {/* Seamless Infinite Gliding Track */}
+        <MotionConfig reducedMotion="never">
+          <motion.div
+            ref={trackRef}
+            className="flex flex-nowrap shrink-0 items-center gap-4 whitespace-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              repeat: Infinity,
+              ease: "linear",
+              duration: 30,
+            }}
           >
-            {/* Left and right atmospheric edge gradient masks */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background via-background/60 to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background via-background/60 to-transparent" />
-
-            {/* Seamless Infinite Gliding Track */}
-            <MotionConfig reducedMotion="never">
-              <motion.div
-                ref={trackRef}
-                className="flex flex-nowrap shrink-0 items-center gap-4 whitespace-nowrap"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{
-                  repeat: Infinity,
-                  ease: "linear",
-                  duration: 35,
-                }}
+            {[...ALL_SKILLS, ...ALL_SKILLS].map((skill, index) => (
+              <div
+                key={`${skill}-${index}`}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs md:text-sm text-zinc-300 backdrop-blur-sm transition-colors hover:border-primary/50 hover:bg-primary/10 cursor-default select-none"
               >
-                {[...ALL_SKILLS, ...ALL_SKILLS].map((skill, index) => (
-                  <div
-                    key={`${skill}-${index}`}
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs md:text-sm text-zinc-300 backdrop-blur-sm transition-colors hover:border-primary/50 hover:bg-primary/10 cursor-default select-none"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
-                    <span>{skill}</span>
-                  </div>
-                ))}
-              </motion.div>
-            </MotionConfig>
-          </div>
-        )}
-
-        {/* Accessibility Control (Shown when OS Reduced Motion is detected) */}
-        {reduceMotion && (
-          <div className="mt-2.5 flex justify-end px-2">
-            <button
-              type="button"
-              onClick={() => setManualScroll(!manualScroll)}
-              className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
-            >
-              <span>
-                {manualScroll
-                  ? "⚡ Enable Auto-Scroll"
-                  : "♿ Reduced Motion: Switch to Manual Scroll"}
-              </span>
-            </button>
-          </div>
-        )}
+                <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
+                <span>{skill}</span>
+              </div>
+            ))}
+          </motion.div>
+        </MotionConfig>
       </div>
     </Section>
   );

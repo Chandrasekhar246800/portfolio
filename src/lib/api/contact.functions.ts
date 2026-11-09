@@ -11,7 +11,7 @@ export const contactFormSchema = z.object({
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export const sendContactMessage = createServerFn({ method: "POST" })
-  .inputValidator(contactFormSchema)
+  .validator(contactFormSchema)
   .handler(async ({ data }) => {
     console.info(`[Contact Message Received] ${data.name} <${data.email}>: ${data.subject}`);
 
@@ -21,4 +21,3 @@ export const sendContactMessage = createServerFn({ method: "POST" })
       message: "Thank you! Your message has been received.",
     };
   });
-

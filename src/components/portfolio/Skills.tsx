@@ -3,11 +3,11 @@ import { motion, MotionConfig } from "motion/react";
 import { Section } from "./Section";
 import { MOTION } from "@/lib/portfolio";
 
-const GROUPS = [
+const SKILL_CATEGORIES = [
   {
     title: "Frontend",
     color: "from-primary to-secondary",
-    items: [
+    skills: [
       "HTML",
       "CSS",
       "JavaScript",
@@ -22,65 +22,40 @@ const GROUPS = [
   {
     title: "Backend",
     color: "from-secondary to-accent",
-    items: ["Node.js", "Express.js", "REST APIs", "JWT Auth"],
+    skills: ["Node.js", "Express.js", "REST APIs", "JWT Auth"],
   },
   {
     title: "Database",
     color: "from-accent to-primary",
-    items: ["MongoDB", "MySQL", "SQL"],
+    skills: ["MongoDB", "MySQL", "SQL"],
   },
   {
     title: "Programming",
     color: "from-primary to-accent",
-    items: ["Java", "Python", "C"],
+    skills: ["Java", "Python", "C"],
   },
   {
     title: "Tools",
     color: "from-secondary to-primary",
-    items: ["Git", "GitHub", "Postman", "VS Code", "Figma", "Vercel", "Netlify"],
+    skills: ["Git", "GitHub", "Postman", "VS Code", "Figma", "Vercel", "Netlify"],
   },
 ];
 
-const ALL_SKILLS = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "JavaScript",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "PostgreSQL",
-  "MySQL",
-  "SQL",
-  "Tailwind CSS",
-  "Framer Motion",
-  "Motion v12",
-  "Shadcn UI",
-  "Java",
-  "Python",
-  "C / C++",
-  "Docker",
-  "Git",
-  "GitHub",
-  "REST APIs",
-  "JWT Auth",
-  "Postman",
-  "VS Code",
-  "Figma",
-  "Vercel",
-  "TanStack Start",
-  "TanStack Router",
-];
+// Single source of truth: dynamically flatten all category skills with Set deduplication
+const ALL_SKILLS = Array.from(new Set(SKILL_CATEGORIES.flatMap((category) => category.skills)));
 
 export function Skills() {
-  const trackRef = useRef<HTMLDivElement>(null);
+  const track1Ref = useRef<HTMLDivElement>(null);
+  const track2Ref = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => {
-    trackRef.current?.getAnimations().forEach((anim) => anim.pause());
+    track1Ref.current?.getAnimations().forEach((anim) => anim.pause());
+    track2Ref.current?.getAnimations().forEach((anim) => anim.pause());
   };
 
   const handleMouseLeave = () => {
-    trackRef.current?.getAnimations().forEach((anim) => anim.play());
+    track1Ref.current?.getAnimations().forEach((anim) => anim.play());
+    track2Ref.current?.getAnimations().forEach((anim) => anim.play());
   };
 
   return (
@@ -94,10 +69,11 @@ export function Skills() {
       }
       description="A modern stack tuned for performance, DX, and shippable products."
     >
+      {/* 5 Upper Category Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {GROUPS.map((g, i) => (
+        {SKILL_CATEGORIES.map((category, i) => (
           <motion.div
-            key={g.title}
+            key={category.title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -105,18 +81,18 @@ export function Skills() {
             className="group relative overflow-hidden rounded-[var(--radius-2xl)] gradient-border p-6 transition-transform hover:-translate-y-1"
           >
             <div
-              className={`absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br ${g.color} opacity-0 transition-opacity duration-500 group-hover:opacity-20`}
+              className={`absolute -inset-px -z-10 rounded-2xl bg-gradient-to-br ${category.color} opacity-0 transition-opacity duration-500 group-hover:opacity-20`}
             />
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="font-display text-lg font-semibold">{g.title}</h3>
+              <h3 className="font-display text-lg font-semibold">{category.title}</h3>
               <span className="font-mono text-xs text-muted-foreground">
                 {String(i + 1).padStart(2, "0")}
               </span>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {g.items.map((s) => (
-                <span key={s} className="chip">
-                  {s}
+              {category.skills.map((skill) => (
+                <span key={skill} className="chip">
+                  {skill}
                 </span>
               ))}
             </div>
@@ -131,32 +107,58 @@ export function Skills() {
         onMouseLeave={handleMouseLeave}
       >
         {/* Left and right atmospheric edge gradient masks */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background via-background/60 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background via-background/60 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
 
-        {/* Seamless Infinite Gliding Track */}
-        <MotionConfig reducedMotion="never">
-          <motion.div
-            ref={trackRef}
-            className="flex flex-nowrap shrink-0 items-center gap-4 whitespace-nowrap"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              repeat: Infinity,
-              ease: "linear",
-              duration: 30,
-            }}
-          >
-            {[...ALL_SKILLS, ...ALL_SKILLS].map((skill, index) => (
-              <div
-                key={`${skill}-${index}`}
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs md:text-sm text-zinc-300 backdrop-blur-sm transition-colors hover:border-primary/50 hover:bg-primary/10 cursor-default select-none"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
-                <span>{skill}</span>
-              </div>
-            ))}
-          </motion.div>
-        </MotionConfig>
+        {/* Mathematical Twin-Track Circular Loop */}
+        <div className="flex w-full overflow-hidden select-none">
+          <MotionConfig reducedMotion="never">
+            {/* Track 1 */}
+            <motion.div
+              ref={track1Ref}
+              className="flex shrink-0 items-center gap-4 pr-4"
+              animate={{ x: ["0%", "-100%"] }}
+              transition={{
+                repeat: Infinity,
+                ease: "linear",
+                duration: 35,
+              }}
+            >
+              {ALL_SKILLS.map((skill) => (
+                <div
+                  key={`track1-${skill}`}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs md:text-sm text-zinc-300 backdrop-blur-sm transition-colors hover:border-primary/50 hover:bg-primary/10 cursor-default"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
+                  <span>{skill}</span>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* Track 2 (Identical sibling track seamlessly following Track 1) */}
+            <motion.div
+              ref={track2Ref}
+              className="flex shrink-0 items-center gap-4 pr-4"
+              animate={{ x: ["0%", "-100%"] }}
+              transition={{
+                repeat: Infinity,
+                ease: "linear",
+                duration: 35,
+              }}
+              aria-hidden="true"
+            >
+              {ALL_SKILLS.map((skill, index) => (
+                <div
+                  key={`track2-${skill}-${index}`}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs md:text-sm text-zinc-300 backdrop-blur-sm transition-colors hover:border-primary/50 hover:bg-primary/10 cursor-default"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent/70 shadow-[0_0_8px_var(--accent)]" />
+                  <span>{skill}</span>
+                </div>
+              ))}
+            </motion.div>
+          </MotionConfig>
+        </div>
       </div>
     </Section>
   );

@@ -21,3 +21,4 @@ export const sendContactMessage = createServerFn({ method: "POST" })
       message: "Thank you! Your message has been received.",
     };
   });
+

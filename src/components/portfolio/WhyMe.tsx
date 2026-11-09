@@ -4,13 +4,41 @@ import { Section } from "./Section";
 import { MOTION } from "@/lib/portfolio";
 
 const CARDS = [
-  { icon: Zap, title: "Fast Learner", body: "I ramp up on new stacks quickly and ship within days, not weeks." },
-  { icon: Lightbulb, title: "Problem Solver", body: "I break complex problems into small, shippable, test-able pieces." },
-  { icon: Layers, title: "Full Stack Developer", body: "Comfortable across frontend, backend, and database design." },
-  { icon: Rocket, title: "Startup Experience", body: "Production website shipped at Robohatch — real users, real impact." },
-  { icon: Sparkles, title: "Modern UI Builder", body: "Premium UX with Tailwind, Framer Motion, and design systems." },
-  { icon: Users, title: "Team Collaborator", body: "Calm communicator, async-friendly, opinionated yet open." },
-  { icon: Brain, title: "Creative Thinker", body: "I treat product, code, and design as one continuous craft." },
+  {
+    icon: Zap,
+    title: "Fast Learner",
+    body: "I ramp up on new stacks quickly and ship within days, not weeks.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Problem Solver",
+    body: "I break complex problems into small, shippable, test-able pieces.",
+  },
+  {
+    icon: Layers,
+    title: "Full Stack Developer",
+    body: "Comfortable across frontend, backend, and database design.",
+  },
+  {
+    icon: Rocket,
+    title: "Startup Experience",
+    body: "Production website shipped at Robohatch — real users, real impact.",
+  },
+  {
+    icon: Sparkles,
+    title: "Modern UI Builder",
+    body: "Premium UX with Tailwind, Framer Motion, and design systems.",
+  },
+  {
+    icon: Users,
+    title: "Team Collaborator",
+    body: "Calm communicator, async-friendly, opinionated yet open.",
+  },
+  {
+    icon: Brain,
+    title: "Creative Thinker",
+    body: "I treat product, code, and design as one continuous craft.",
+  },
 ];
 
 export function WhyMe() {
@@ -18,7 +46,11 @@ export function WhyMe() {
     <Section
       id="why"
       eyebrow="Why work with me"
-      title={<>Engineering meets <span className="text-gradient-aurora">craft</span>.</>}
+      title={
+        <>
+          Engineering meets <span className="text-gradient-aurora">craft</span>.
+        </>
+      }
       description="What you can expect when we build together."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

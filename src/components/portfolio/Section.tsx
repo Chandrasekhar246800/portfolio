@@ -18,7 +18,10 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={`relative mx-auto w-full max-w-6xl px-6 py-24 md:py-28 ${className}`}>
+    <section
+      id={id}
+      className={`relative mx-auto w-full max-w-6xl px-6 py-24 md:py-28 ${className}`}
+    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

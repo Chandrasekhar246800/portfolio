@@ -6,7 +6,13 @@ import { COMMAND_ACTIONS, NAV_ITEMS } from "@/lib/portfolio";
 const NAV = NAV_ITEMS;
 const ACTIONS = COMMAND_ACTIONS;
 
-export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
+export function CommandPalette({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (v: boolean) => void;
+}) {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -29,13 +35,10 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
   const easter = () => {
     setOpen(false);
     if (reduceMotion) return;
-    document.body.animate(
-      [
-        { filter: "hue-rotate(0deg)" },
-        { filter: "hue-rotate(360deg)" },
-      ],
-      { duration: 1600, iterations: 1 },
-    );
+    document.body.animate([{ filter: "hue-rotate(0deg)" }, { filter: "hue-rotate(360deg)" }], {
+      duration: 1600,
+      iterations: 1,
+    });
   };
 
   return (
@@ -64,7 +67,10 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
                 <Command.Empty className="px-4 py-6 text-sm text-muted-foreground">
                   No results found.
                 </Command.Empty>
-                <Command.Group heading="Navigate" className="px-2 text-xs uppercase tracking-widest text-muted-foreground">
+                <Command.Group
+                  heading="Navigate"
+                  className="px-2 text-xs uppercase tracking-widest text-muted-foreground"
+                >
                   {NAV.map(({ id, label, icon: Icon }) => (
                     <Command.Item
                       key={id}
@@ -75,13 +81,17 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
                     </Command.Item>
                   ))}
                 </Command.Group>
-                <Command.Group heading="Actions" className="mt-2 px-2 text-xs uppercase tracking-widest text-muted-foreground">
+                <Command.Group
+                  heading="Actions"
+                  className="mt-2 px-2 text-xs uppercase tracking-widest text-muted-foreground"
+                >
                   {ACTIONS.map((a) => (
                     <Command.Item
                       key={a.id}
                       onSelect={() => {
-                        if (a.action === "easter") return easter();
-                        if (a.href) window.open(a.href, "_blank", "noopener,noreferrer");
+                        if ("action" in a && a.action === "easter") return easter();
+                        if ("href" in a && a.href)
+                          window.open(a.href, "_blank", "noopener,noreferrer");
                         setOpen(false);
                       }}
                       className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground data-[selected=true]:bg-white/10"

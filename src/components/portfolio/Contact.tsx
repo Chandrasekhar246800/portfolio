@@ -14,7 +14,12 @@ const schema = z.object({
 });
 
 export function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
 
@@ -37,14 +42,33 @@ export function Contact() {
     <Section
       id="contact"
       eyebrow="Contact"
-      title={<>Let's build <span className="text-gradient-aurora">something</span>.</>}
+      title={
+        <>
+          Let's build <span className="text-gradient-aurora">something</span>.
+        </>
+      }
       description="Open to internships, freelance projects, and collaboration opportunities."
     >
       <div className="grid gap-6 lg:grid-cols-5">
         <div className="space-y-3 lg:col-span-2">
           {[
-            ...SOCIAL_LINKS.map(({ icon: Icon, label, href }) => ({ icon: Icon, label, value: label === "GitHub" ? "@Chandrasekhar246800" : label === "LinkedIn" ? "Chandra Sekhar Reddy" : "mcsr8020@gmail.com", href })),
-            { icon: MapPin, label: "Location", value: "India · Remote-friendly" },
+            ...SOCIAL_LINKS.map(({ icon: Icon, label, href }) => ({
+              icon: Icon,
+              label,
+              value:
+                label === "GitHub"
+                  ? "@Chandrasekhar246800"
+                  : label === "LinkedIn"
+                    ? "Chandra Sekhar Reddy"
+                    : "mcsr8020@gmail.com",
+              href,
+            })),
+            {
+              icon: MapPin,
+              label: "Location",
+              value: "India · Remote-friendly",
+              href: undefined,
+            },
           ].map(({ icon: Icon, label, value, href }) => {
             const inner = (
               <div className="group flex items-center gap-4 rounded-2xl glass p-4 transition-colors hover:bg-white/[0.05]">
@@ -52,13 +76,17 @@ export function Contact() {
                   <Icon className="h-4 w-4 text-accent" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground">{label}</div>
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                    {label}
+                  </div>
                   <div className="truncate font-medium">{value}</div>
                 </div>
               </div>
             );
             return href ? (
-              <a key={label} href={href} target="_blank" rel="noreferrer">{inner}</a>
+              <a key={label} href={href} target="_blank" rel="noreferrer">
+                {inner}
+              </a>
             ) : (
               <div key={label}>{inner}</div>
             );
@@ -73,7 +101,10 @@ export function Contact() {
           </div>
         </div>
 
-        <form onSubmit={submit} className="lg:col-span-3 rounded-3xl gradient-border p-6 md:p-8 space-y-4">
+        <form
+          onSubmit={submit}
+          className="lg:col-span-3 rounded-3xl gradient-border p-6 md:p-8 space-y-4"
+        >
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Name" error={errors.name}>
               <input
@@ -148,7 +179,15 @@ export function Contact() {
   );
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
       <div className="mb-1.5 flex items-center justify-between text-xs uppercase tracking-widest">

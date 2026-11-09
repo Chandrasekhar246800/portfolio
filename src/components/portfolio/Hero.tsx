@@ -83,9 +83,17 @@ function Particles() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     let raf = 0;
-    let w = 0, h = 0;
+    let w = 0,
+      h = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const pts: { x: number; y: number; vx: number; vy: number; r: number; c: string }[] = [];
+    const pts: {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      r: number;
+      c: string;
+    }[] = [];
     const colors = ["rgba(124,58,237,0.9)", "rgba(6,182,212,0.85)", "rgba(20,241,149,0.8)"];
     const mouse = { x: -9999, y: -9999 };
 
@@ -197,16 +205,17 @@ export function Hero() {
     <section id="home" className="relative isolate min-h-dvh overflow-hidden pt-28">
       {/* Background layers */}
       <div className="absolute inset-0 -z-30 grid-bg" />
-      <div className="absolute inset-0 -z-20">
-        {!reduceMotion && <Particles />}
-      </div>
-      <motion.div style={reduceMotion ? undefined : { x: tx, y: ty }} className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-20">{!reduceMotion && <Particles />}</div>
+      <motion.div
+        style={reduceMotion ? undefined : { x: tx, y: ty }}
+        className="absolute inset-0 -z-10"
+      >
         <div className="aurora" />
       </motion.div>
       <div className="noise -z-10" />
 
       <div className="mx-auto flex max-w-6xl flex-col items-center px-6 pb-24 pt-12 text-center">
-          <motion.div
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -231,7 +240,11 @@ export function Hero() {
           <motion.span
             initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.65, 0, 0.35, 1] }}
+            transition={{
+              duration: 0.9,
+              delay: 0.15,
+              ease: [0.65, 0, 0.35, 1],
+            }}
             className="block text-gradient-aurora"
           >
             Reddy
@@ -254,8 +267,8 @@ export function Hero() {
           className="mt-5 max-w-2xl text-balance text-muted-foreground md:text-lg"
         >
           Building scalable web applications, modern user experiences, and real-world digital
-          products. Computer Science Engineering student crafting high-performance apps with
-          React, Next.js, and Node.js.
+          products. Computer Science Engineering student crafting high-performance apps with React,
+          Next.js, and Node.js.
         </motion.p>
 
         <motion.div

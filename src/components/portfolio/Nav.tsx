@@ -4,7 +4,10 @@ import { Command } from "lucide-react";
 import { Button } from "../ui/button";
 import { NAV_ITEMS } from "@/lib/portfolio";
 
-const ITEMS = NAV_ITEMS.map(({ id, label }) => ({ id, label: label.replace(/^Go to /, "") }));
+const ITEMS = NAV_ITEMS.map(({ id, label }) => ({
+  id,
+  label: label.replace(/^Go to /, ""),
+}));
 
 export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [active, setActive] = useState("home");
@@ -72,7 +75,13 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
           ))}
         </ul>
 
-        <Button onClick={onOpenPalette} variant="outline" size="sm" aria-label="Open command palette" className="gap-2 text-xs text-muted-foreground">
+        <Button
+          onClick={onOpenPalette}
+          variant="outline"
+          size="sm"
+          aria-label="Open command palette"
+          className="gap-2 text-xs text-muted-foreground"
+        >
           <Command className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">Press</span>
           <kbd className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[10px]">⌘K</kbd>

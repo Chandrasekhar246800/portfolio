@@ -4,6 +4,7 @@ import { RESUME_HREF, SOCIAL_LINKS } from "@/lib/portfolio";
 
 const LINKS = [
   { id: "about", label: "About" },
+  { id: "why", label: "Why Me" },
   { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
@@ -17,7 +18,9 @@ export function Footer() {
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3">
         <div>
           <a href="#home" className="inline-flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-lg gradient-border font-display text-sm font-bold text-gradient-aurora">CR</span>
+            <span className="grid h-9 w-9 place-items-center rounded-lg gradient-border font-display text-sm font-bold text-gradient-aurora">
+              CR
+            </span>
             <span className="font-display font-semibold">Chandra Sekhar Reddy</span>
           </a>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
@@ -26,11 +29,16 @@ export function Footer() {
         </div>
 
         <div>
-          <div className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">Quick Links</div>
+          <div className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
+            Quick Links
+          </div>
           <ul className="grid grid-cols-2 gap-1.5 text-sm">
             {LINKS.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`} className="text-muted-foreground transition-colors hover:text-foreground">
+                <a
+                  href={`#${l.id}`}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
                   {l.label}
                 </a>
               </li>
@@ -55,13 +63,13 @@ export function Footer() {
               </Button>
             ))}
           </div>
-            <Button asChild variant="outline">
-              <a href={RESUME_HREF} target="_blank" rel="noreferrer">
-                <ArrowUp className="h-4 w-4" /> Resume
-              </a>
-            </Button>
-            <Button asChild variant="outline">
-              <a href="#home">
+          <Button asChild variant="outline">
+            <a href={RESUME_HREF} target="_blank" rel="noreferrer">
+              <ArrowUp className="h-4 w-4" /> Resume
+            </a>
+          </Button>
+          <Button asChild variant="outline">
+            <a href="#home">
               <ArrowUp className="h-4 w-4" /> Back to top
             </a>
           </Button>

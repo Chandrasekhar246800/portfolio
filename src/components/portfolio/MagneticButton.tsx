@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 
 export function MagneticButton({
   children,
@@ -9,6 +9,7 @@ export function MagneticButton({
   strength?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 260, damping: 18, mass: 0.4 });
@@ -17,8 +18,9 @@ export function MagneticButton({
   return (
     <motion.div
       ref={ref}
-      style={{ x: sx, y: sy }}
+      style={reduceMotion ? undefined : { x: sx, y: sy }}
       onMouseMove={(e) => {
+        if (reduceMotion) return;
         const r = ref.current?.getBoundingClientRect();
         if (!r) return;
         x.set((e.clientX - (r.left + r.width / 2)) * strength);

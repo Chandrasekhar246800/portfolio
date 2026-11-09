@@ -3,13 +3,7 @@ import { motion } from "motion/react";
 import { ArrowUpRight, ExternalLink, Github, Sparkles } from "lucide-react";
 import { Section } from "./Section";
 import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { MOTION, RESUME_HREF } from "@/lib/portfolio";
 
 type Project = {
@@ -49,10 +43,18 @@ const PROJECTS: Project[] = [
       "I built a responsive marketing experience with a clean information hierarchy, strong visual system, and production-ready frontend structure.",
     architecture:
       "Next.js application architecture with component-driven UI, reusable sections, responsive layouts, and backend-ready integration points.",
-    challenges: ["Balancing visual polish with load speed", "Maintaining hierarchy on smaller screens", "Keeping the startup story concise"],
-    learnings: ["How to ship a production website with clarity", "How to translate business goals into interface decisions"],
+    challenges: [
+      "Balancing visual polish with load speed",
+      "Maintaining hierarchy on smaller screens",
+      "Keeping the startup story concise",
+    ],
+    learnings: [
+      "How to ship a production website with clarity",
+      "How to translate business goals into interface decisions",
+    ],
     tech: ["Next.js", "React", "Node.js", "MongoDB", "Tailwind CSS"],
-    impact: "Production startup site that demonstrates end-to-end ownership, frontend quality, and real shipping experience.",
+    impact:
+      "Production startup site that demonstrates end-to-end ownership, frontend quality, and real shipping experience.",
     github: "https://github.com/Chandrasekhar246800",
     featured: true,
   },
@@ -60,26 +62,45 @@ const PROJECTS: Project[] = [
     id: "sqlguru",
     title: "SQLGuru",
     category: "Educational Platform",
-    description: "Interactive SQL learning platform with hands-on challenges and progress tracking.",
-    overview: "Built an interactive SQL learning experience focused on practice, progress, and structured learning.",
-    problem: "Learning SQL can feel abstract when practice is disconnected from feedback and progression.",
-    solution: "I designed a guided learning flow with challenge-driven interaction and a clear progression model.",
-    architecture: "Next.js front end with modular practice views, stateful progress tracking, and lesson-driven content organization.",
-    challenges: ["Keeping practice loops fast", "Making progression easy to follow", "Keeping content structured"],
+    description:
+      "Interactive SQL learning platform with hands-on challenges and progress tracking.",
+    overview:
+      "Built an interactive SQL learning experience focused on practice, progress, and structured learning.",
+    problem:
+      "Learning SQL can feel abstract when practice is disconnected from feedback and progression.",
+    solution:
+      "I designed a guided learning flow with challenge-driven interaction and a clear progression model.",
+    architecture:
+      "Next.js front end with modular practice views, stateful progress tracking, and lesson-driven content organization.",
+    challenges: [
+      "Keeping practice loops fast",
+      "Making progression easy to follow",
+      "Keeping content structured",
+    ],
     learnings: ["How to design learning flows", "How to keep complex content approachable"],
     tech: ["Next.js", "TypeScript", "SQL", "React"],
-    impact: "Shows product thinking and the ability to turn technical learning into a usable interface.",
+    impact:
+      "Shows product thinking and the ability to turn technical learning into a usable interface.",
   },
   {
     id: "satellite-image-classification",
     title: "Satellite Image Classification",
     category: "AI / ML Project",
-    description: "A computer vision project for classifying satellite imagery into meaningful land-use categories.",
-    overview: "Explored a computer vision workflow for classifying satellite imagery into land-use categories.",
-    problem: "Raw satellite imagery is difficult to interpret without a reliable classification pipeline.",
-    solution: "I structured the project around image preprocessing, model training, and prediction evaluation.",
-    architecture: "Python-based ML pipeline with preprocessing, model training, inference, and evaluation steps.",
-    challenges: ["Normalizing image inputs", "Managing model quality", "Evaluating predictions consistently"],
+    description:
+      "A computer vision project for classifying satellite imagery into meaningful land-use categories.",
+    overview:
+      "Explored a computer vision workflow for classifying satellite imagery into land-use categories.",
+    problem:
+      "Raw satellite imagery is difficult to interpret without a reliable classification pipeline.",
+    solution:
+      "I structured the project around image preprocessing, model training, and prediction evaluation.",
+    architecture:
+      "Python-based ML pipeline with preprocessing, model training, inference, and evaluation steps.",
+    challenges: [
+      "Normalizing image inputs",
+      "Managing model quality",
+      "Evaluating predictions consistently",
+    ],
     learnings: ["How to structure an ML workflow", "How to reason about model tradeoffs"],
     tech: ["Python", "Machine Learning", "Computer Vision", "TensorFlow"],
     impact: "Demonstrates technical breadth beyond frontend work and a disciplined ML workflow.",
@@ -88,13 +109,25 @@ const PROJECTS: Project[] = [
     id: "smartdonum",
     title: "SmartDonum",
     category: "Food Donation Platform",
-    description: "A platform connecting food donors with NGOs to reduce food waste and feed the hungry.",
-    overview: "Built a service platform connecting food donors and NGOs to reduce waste and improve distribution.",
-    problem: "Food donation workflows need to be simple, trustworthy, and operationally clear for all users.",
-    solution: "I created a structured platform with donor and NGO flows, requests, and lightweight operational clarity.",
-    architecture: "React and Node.js application with structured workflows, API-driven interactions, and MongoDB-backed data.",
-    challenges: ["Keeping flows trustworthy", "Handling operational states clearly", "Making the dashboard understandable"],
-    learnings: ["How to design for real-world coordination", "How to simplify multi-user workflows"],
+    description:
+      "A platform connecting food donors with NGOs to reduce food waste and feed the hungry.",
+    overview:
+      "Built a service platform connecting food donors and NGOs to reduce waste and improve distribution.",
+    problem:
+      "Food donation workflows need to be simple, trustworthy, and operationally clear for all users.",
+    solution:
+      "I created a structured platform with donor and NGO flows, requests, and lightweight operational clarity.",
+    architecture:
+      "React and Node.js application with structured workflows, API-driven interactions, and MongoDB-backed data.",
+    challenges: [
+      "Keeping flows trustworthy",
+      "Handling operational states clearly",
+      "Making the dashboard understandable",
+    ],
+    learnings: [
+      "How to design for real-world coordination",
+      "How to simplify multi-user workflows",
+    ],
     tech: ["React", "Node.js", "Express", "MongoDB"],
     impact: "Shows product and backend thinking in a real-world social impact context.",
   },
@@ -102,15 +135,24 @@ const PROJECTS: Project[] = [
     id: "campuscode",
     title: "CampusCode",
     category: "Developer Community",
-    description: "A platform for students to network, collaborate, and share resources in coding communities.",
-    overview: "Built a community platform for students to collaborate, share work, and stay connected.",
+    description:
+      "A platform for students to network, collaborate, and share resources in coding communities.",
+    overview:
+      "Built a community platform for students to collaborate, share work, and stay connected.",
     problem: "Student communities need a focused space to collaborate without friction or clutter.",
-    solution: "I designed a community-first experience centered on collaboration, resource sharing, and events.",
-    architecture: "React and Node.js stack with content organization, collaborative workflows, and data persistence.",
-    challenges: ["Keeping community actions organized", "Making collaboration paths obvious", "Supporting resource sharing"],
+    solution:
+      "I designed a community-first experience centered on collaboration, resource sharing, and events.",
+    architecture:
+      "React and Node.js stack with content organization, collaborative workflows, and data persistence.",
+    challenges: [
+      "Keeping community actions organized",
+      "Making collaboration paths obvious",
+      "Supporting resource sharing",
+    ],
     learnings: ["How to design social product flows", "How to keep community UI efficient"],
     tech: ["React", "Node.js", "MongoDB"],
-    impact: "Demonstrates community product design and full-stack execution across a multi-user experience.",
+    impact:
+      "Demonstrates community product design and full-stack execution across a multi-user experience.",
   },
 ];
 
@@ -154,11 +196,15 @@ function FeaturedProjectCard({ project, onOpen }: { project: Project; onOpen: ()
             </div>
 
             <div>
-              <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{project.category}</div>
+              <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                {project.category}
+              </div>
               <h3 className="mt-2 font-display text-3xl font-bold md:text-4xl">{project.title}</h3>
             </div>
 
-            <p className="max-w-xl text-sm leading-6 text-muted-foreground md:text-[15px]">{project.description}</p>
+            <p className="max-w-xl text-sm leading-6 text-muted-foreground md:text-[15px]">
+              {project.description}
+            </p>
 
             <TechChips tech={project.tech} />
           </div>
@@ -208,10 +254,18 @@ function FeaturedProjectCard({ project, onOpen }: { project: Project; onOpen: ()
                         {project.title.split(" ")[0]}
                       </div>
                       <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-muted-foreground">
-                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">Ship fast</div>
-                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">Stay polished</div>
-                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">Scale cleanly</div>
-                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">Improve clarity</div>
+                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">
+                          Ship fast
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">
+                          Stay polished
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">
+                          Scale cleanly
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-black/10 px-3 py-2">
+                          Improve clarity
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -241,10 +295,18 @@ function ProofCard({ project, onOpen }: { project: Project; onOpen: () => void }
 
       <div className="flex items-start justify-between gap-3">
         <div>
-          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{project.category}</div>
+          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            {project.category}
+          </div>
           <h3 className="mt-1 font-display text-xl font-semibold">{project.title}</h3>
         </div>
-        <Button onClick={onOpen} variant="outline" size="icon" aria-label={`Open ${project.title} case study`} className="flex-shrink-0">
+        <Button
+          onClick={onOpen}
+          variant="outline"
+          size="icon"
+          aria-label={`Open ${project.title} case study`}
+          className="flex-shrink-0"
+        >
           <ArrowUpRight className="h-4 w-4" />
         </Button>
       </div>
@@ -293,8 +355,12 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
     <Dialog open onOpenChange={(next) => !next && onClose()}>
       <DialogContent className="max-h-[85vh] overflow-auto p-8 backdrop-blur-xl sm:max-w-2xl">
         <DialogHeader className="text-left">
-          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{p.category}</div>
-          <DialogTitle className="font-display text-3xl font-bold text-gradient">{p.title}</DialogTitle>
+          <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            {p.category}
+          </div>
+          <DialogTitle className="font-display text-3xl font-bold text-gradient">
+            {p.title}
+          </DialogTitle>
           <DialogDescription className="text-muted-foreground">{p.description}</DialogDescription>
         </DialogHeader>
 
@@ -304,7 +370,9 @@ function Modal({ p, onClose }: { p: Project; onClose: () => void }) {
         <SectionBlock title="Architecture" body={p.architecture} />
 
         <div className="mt-6">
-          <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">Tech Stack</div>
+          <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+            Tech Stack
+          </div>
           <TechChips tech={p.tech} />
         </div>
 
@@ -348,7 +416,11 @@ export function Projects() {
     <Section
       id="projects"
       eyebrow="Selected work"
-      title={<>Projects with <span className="text-gradient-aurora">real impact</span>.</>}
+      title={
+        <>
+          Projects with <span className="text-gradient-aurora">real impact</span>.
+        </>
+      }
       description="Production output that demonstrates engineering ability, production experience, technical breadth, and product thinking."
     >
       <FeaturedProjectCard project={featured} onOpen={() => setOpen(featured)} />

@@ -17,7 +17,11 @@ export function Experience() {
     <Section
       id="experience"
       eyebrow="Experience"
-      title={<>Shipped in a <span className="text-gradient-aurora">real startup</span>.</>}
+      title={
+        <>
+          Shipped in a <span className="text-gradient-aurora">real startup</span>.
+        </>
+      }
       description="From mockups to production — hands-on, end-to-end ownership."
     >
       <div className="relative">
@@ -46,7 +50,7 @@ export function Experience() {
           </div>
 
           <div className="relative mt-6 md:mt-0 md:pl-12">
-              <span className="absolute left-[9px] top-2 grid h-3 w-3 -translate-x-1/2 place-items-center rounded-full bg-background ring-2 ring-accent md:left-0">
+            <span className="absolute left-[9px] top-2 grid h-3 w-3 -translate-x-1/2 place-items-center rounded-full bg-background ring-2 ring-accent md:left-0">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             </span>
             <div className="ml-10 rounded-[var(--radius-2xl)] glass p-6 md:ml-0">

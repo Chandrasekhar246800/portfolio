@@ -13,11 +13,31 @@ const HIGHLIGHTS = [
 ];
 
 const JOURNEY = [
-  { year: "2021", title: "Started Programming", body: "First lines of C and Python — fell in love with building." },
-  { year: "2022", title: "Engineering Journey", body: "Began Computer Science Engineering, deep-dived into web." },
-  { year: "2023", title: "Full Stack Development", body: "Shipped React + Node apps end-to-end, learned databases." },
-  { year: "2025", title: "Startup Experience", body: "Joined Robohatch — built the official production website." },
-  { year: "Now", title: "Hackathons & Projects", body: "Bharatiya Antariksha Hackathon and the Robohatch launch." },
+  {
+    year: "2021",
+    title: "Started Programming",
+    body: "First lines of C and Python — fell in love with building.",
+  },
+  {
+    year: "2022",
+    title: "Engineering Journey",
+    body: "Began Computer Science Engineering, deep-dived into web.",
+  },
+  {
+    year: "2023",
+    title: "Full Stack Development",
+    body: "Shipped React + Node apps end-to-end, learned databases.",
+  },
+  {
+    year: "2025",
+    title: "Startup Experience",
+    body: "Joined Robohatch — built the official production website.",
+  },
+  {
+    year: "Now",
+    title: "Hackathons & Projects",
+    body: "Bharatiya Antariksha Hackathon and the Robohatch launch.",
+  },
 ];
 
 export function About() {
@@ -25,7 +45,11 @@ export function About() {
     <Section
       id="about"
       eyebrow="About"
-      title={<>Engineer by training, <span className="text-gradient-aurora">builder by craft</span>.</>}
+      title={
+        <>
+          Engineer by training, <span className="text-gradient-aurora">builder by craft</span>.
+        </>
+      }
       description="I'm a Computer Science Engineering student building modern web applications and solving real problems through code. My focus: scalable full-stack systems, intuitive UX, and polished products."
     >
       <div className="grid gap-10 lg:grid-cols-5">

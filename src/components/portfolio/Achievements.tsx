@@ -5,10 +5,26 @@ import { Section } from "./Section";
 import { MOTION } from "@/lib/portfolio";
 
 const HIGHLIGHTS = [
-  { icon: Trophy, title: "Bharatiya Antariksha Hackathon", body: "Participated in India's premier space-tech hackathon." },
-  { icon: Rocket, title: "Startup Development", body: "Shipped production website for Robohatch as Full Stack Developer." },
-  { icon: GitBranch, title: "Robohatch Delivery", body: "Designed and shipped the official startup website in production." },
-  { icon: Award, title: "React Ecosystem Expertise", body: "Modern stack: Next.js, TypeScript, Tailwind, Framer Motion." },
+  {
+    icon: Trophy,
+    title: "Bharatiya Antariksha Hackathon",
+    body: "Participated in India's premier space-tech hackathon.",
+  },
+  {
+    icon: Rocket,
+    title: "Startup Development",
+    body: "Shipped production website for Robohatch as Full Stack Developer.",
+  },
+  {
+    icon: GitBranch,
+    title: "Robohatch Delivery",
+    body: "Designed and shipped the official startup website in production.",
+  },
+  {
+    icon: Award,
+    title: "React Ecosystem Expertise",
+    body: "Modern stack: Next.js, TypeScript, Tailwind, Framer Motion.",
+  },
 ];
 
 const STATS = [
@@ -49,7 +65,11 @@ export function Achievements() {
     <Section
       id="achievements"
       eyebrow="Achievements"
-      title={<>Milestones & <span className="text-gradient-aurora">momentum</span>.</>}
+      title={
+        <>
+          Milestones & <span className="text-gradient-aurora">momentum</span>.
+        </>
+      }
       description="Building, learning, and shipping — proof of work over time."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

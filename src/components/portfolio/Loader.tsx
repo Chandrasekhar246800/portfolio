@@ -12,16 +12,23 @@ export function Loader() {
       return;
     }
     let raf = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const start = performance.now();
     const dur = 1600;
     const tick = (t: number) => {
       const p = Math.min(1, (t - start) / dur);
       setPct(Math.floor(p * 100));
-      if (p < 1) raf = requestAnimationFrame(tick);
-      else setTimeout(() => setDone(true), 250);
+      if (p < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        timer = setTimeout(() => setDone(true), 250);
+      }
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (timer) clearTimeout(timer);
+    };
   }, [reduceMotion]);
 
   return (

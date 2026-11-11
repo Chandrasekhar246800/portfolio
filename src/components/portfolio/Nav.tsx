@@ -12,6 +12,13 @@ const ITEMS = NAV_ITEMS.map(({ id, label }) => ({
 export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [shortcutKey, setShortcutKey] = useState("⌘K");
+
+  useEffect(() => {
+    if (typeof navigator !== "undefined" && !/Mac|iPhone|iPad|iPod/.test(navigator.userAgent)) {
+      setShortcutKey("Ctrl K");
+    }
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -84,7 +91,9 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
         >
           <Command className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">Press</span>
-          <kbd className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[10px]">⌘K</kbd>
+          <kbd className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[10px]">
+            {shortcutKey}
+          </kbd>
         </Button>
       </nav>
     </motion.header>

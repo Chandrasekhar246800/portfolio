@@ -30,7 +30,13 @@ export function CustomCursor() {
 
     const pointerMedia = window.matchMedia("(pointer: coarse)");
     const updateDeviceType = () => {
-      setIsTouch(pointerMedia.matches || window.innerWidth < 768);
+      const touch = pointerMedia.matches || window.innerWidth < 768;
+      setIsTouch(touch);
+      if (touch || reduceMotion) {
+        document.documentElement.classList.remove("cursor-none-all");
+      } else {
+        document.documentElement.classList.add("cursor-none-all");
+      }
     };
 
     updateDeviceType();
@@ -41,13 +47,11 @@ export function CustomCursor() {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
 
-      if (!isVisible) {
-        setIsVisible(true);
-      }
+      setIsVisible((prev) => (prev ? prev : true));
 
       const target = e.target as HTMLElement | null;
       const interactive = !!target?.closest(INTERACTIVE_SELECTOR);
-      setIsHovered(interactive);
+      setIsHovered((prev) => (prev !== interactive ? interactive : prev));
     };
 
     const onMouseDown = () => setIsClicked(true);
@@ -62,6 +66,7 @@ export function CustomCursor() {
     document.documentElement.addEventListener("mouseenter", onMouseEnter);
 
     return () => {
+      document.documentElement.classList.remove("cursor-none-all");
       pointerMedia.removeEventListener("change", updateDeviceType);
       window.removeEventListener("resize", updateDeviceType);
       window.removeEventListener("pointermove", onPointerMove);
@@ -70,7 +75,7 @@ export function CustomCursor() {
       document.documentElement.removeEventListener("mouseleave", onMouseLeave);
       document.documentElement.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [mouseX, mouseY, reduceMotion]);
 
   if (!mounted || isTouch || reduceMotion) {
     return null;

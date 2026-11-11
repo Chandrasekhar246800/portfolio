@@ -44,6 +44,8 @@ type Project = {
   github?: string;
   liveDemo?: string;
   featured?: boolean;
+  previewImage?: string;
+  demoVideoUrl?: string;
 };
 
 const PROJECTS: Project[] = [
@@ -77,6 +79,7 @@ const PROJECTS: Project[] = [
       "Production startup platform demonstrating end-to-end engineering ownership, frontend finesse, and real-world deployment experience.",
     github: "https://github.com/Chandrasekhar246800",
     featured: true,
+    previewImage: "/og-image.svg",
   },
   {
     id: "sqlguru",
@@ -570,6 +573,71 @@ function CaseStudyModal({ p, onClose }: { p: Project; onClose: () => void }) {
                 </div>
               </div>
             </div>
+
+            {/* Visual Proof & Interface Preview */}
+            {(p.previewImage || p.demoVideoUrl) && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                    Visual Proof & Interface Preview
+                  </div>
+                  {p.liveDemo && (
+                    <a
+                      href={p.liveDemo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 font-mono text-xs text-accent transition-colors hover:text-accent/80 hover:underline"
+                    >
+                      <span>Live Site</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+                </div>
+
+                <div className="group relative overflow-hidden rounded-2xl border border-border/70 bg-surface/60 shadow-2xl backdrop-blur-md">
+                  {/* Browser Mockup Chrome Header */}
+                  <div className="flex items-center justify-between border-b border-border/50 bg-background/70 px-4 py-2.5 backdrop-blur-md">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-surface/80 px-3 py-0.5 font-mono text-[11px] text-muted-foreground">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent/80" />
+                      <span className="truncate max-w-[200px] sm:max-w-xs">
+                        {p.liveDemo
+                          ? p.liveDemo.replace(/^https?:\/\//, "")
+                          : `${p.id}.chandrasekharreddy.dev`}
+                      </span>
+                    </div>
+                    <div className="w-12 text-right">
+                      <span className="font-mono text-[10px] text-muted-foreground">Preview</span>
+                    </div>
+                  </div>
+
+                  {/* Frame Body: Video or Image */}
+                  <div className="relative aspect-video w-full overflow-hidden bg-background/50">
+                    {p.demoVideoUrl ? (
+                      <iframe
+                        src={p.demoVideoUrl}
+                        title={`${p.title} demo video`}
+                        className="h-full w-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <img
+                        src={p.previewImage}
+                        alt={`${p.title} interface preview`}
+                        loading="lazy"
+                        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.01]"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Overview Card */}
             <div className="rounded-2xl border border-border/50 bg-surface/40 p-6 md:p-8 backdrop-blur-sm space-y-3">

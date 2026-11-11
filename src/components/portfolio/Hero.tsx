@@ -19,12 +19,16 @@ function Typer() {
 
   useEffect(() => {
     const target = ROLES[i];
+    let holdTimeout: ReturnType<typeof setTimeout> | undefined;
+
     const speed = del ? 35 : 70;
     const t = setTimeout(() => {
       if (!del) {
         const next = target.slice(0, text.length + 1);
         setText(next);
-        if (next === target) setTimeout(() => setDel(true), 1400);
+        if (next === target) {
+          holdTimeout = setTimeout(() => setDel(true), 2200);
+        }
       } else {
         const next = target.slice(0, text.length - 1);
         setText(next);
@@ -34,7 +38,11 @@ function Typer() {
         }
       }
     }, speed);
-    return () => clearTimeout(t);
+
+    return () => {
+      clearTimeout(t);
+      if (holdTimeout) clearTimeout(holdTimeout);
+    };
   }, [text, del, i]);
 
   return (
@@ -205,7 +213,7 @@ export function Hero() {
   }, [mx, my, reduceMotion]);
 
   return (
-    <section id="home" className="relative isolate min-h-dvh overflow-hidden pt-28">
+    <section id="home" className="relative isolate min-h-dvh overflow-hidden pt-28 scroll-mt-28">
       {/* Background layers */}
       <div className="absolute inset-0 -z-30 grid-bg" />
       <div className="absolute inset-0 -z-20">

@@ -12,6 +12,7 @@ import { MotionConfig } from "motion/react";
 
 import appCss from "../styles.css?url";
 import { CustomCursor } from "../components/portfolio/CustomCursor";
+import { Toaster } from "../components/ui/sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -125,6 +126,7 @@ function RootComponent() {
         <CustomCursor />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <Toaster position="bottom-right" theme="dark" closeButton richColors />
       </MotionConfig>
     </QueryClientProvider>
   );

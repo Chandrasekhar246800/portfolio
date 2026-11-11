@@ -20,7 +20,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative mx-auto w-full max-w-6xl px-6 py-24 md:py-28 ${className}`}
+      className={`relative mx-auto w-full max-w-6xl px-6 py-24 md:py-28 scroll-mt-24 md:scroll-mt-28 ${className}`}
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Check, Github, Linkedin, Mail, MapPin, Send, Sparkles } from "lucide-react";
 import { z } from "zod";
+import { toast } from "sonner";
 import { Section } from "./Section";
 import { Button } from "../ui/button";
 import { SOCIAL_LINKS } from "@/lib/portfolio";
@@ -22,6 +23,13 @@ export function Contact() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    };
+  }, []);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,12 +38,23 @@ export function Contact() {
       const errs: Record<string, string> = {};
       r.error.issues.forEach((i) => (errs[i.path[0] as string] = i.message));
       setErrors(errs);
+      toast.error("Please fill out all required fields properly.");
       return;
     }
     setErrors({});
     setSent(true);
-    setTimeout(() => setSent(false), 4000);
+
+    toast.success("Message sent successfully!", {
+      description: "Thanks for reaching out! I'll review your note and reply within 24 hours.",
+      duration: 4500,
+    });
+
     setForm({ name: "", email: "", subject: "", message: "" });
+
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    resetTimerRef.current = setTimeout(() => {
+      setSent(false);
+    }, 4500);
   };
 
   return (

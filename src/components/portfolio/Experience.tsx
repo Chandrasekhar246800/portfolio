@@ -56,7 +56,7 @@ export function Experience() {
           <div className="pl-11 md:pl-0 md:pr-12 md:text-right">
             <div className="inline-flex flex-col items-start gap-2 md:items-end">
               <span className="rounded-full glass px-3 py-1 font-mono text-xs text-muted-foreground">
-                Jan 2025 – Jun 2025
+                Jan 2026 – Jun 2026
               </span>
               <h3 className="font-display text-2xl font-bold text-foreground">Robohatch</h3>
               <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">

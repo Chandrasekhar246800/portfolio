@@ -14,22 +14,22 @@ const HIGHLIGHTS = [
 
 const JOURNEY = [
   {
-    year: "2021",
+    year: "2023",
     title: "Started Programming",
     body: "First lines of C and Python — fell in love with building.",
   },
   {
-    year: "2022",
+    year: "2023",
     title: "Engineering Journey",
     body: "Began Computer Science Engineering, deep-dived into web.",
   },
   {
-    year: "2023",
+    year: "2024",
     title: "Full Stack Development",
     body: "Shipped React + Node apps end-to-end, learned databases.",
   },
   {
-    year: "2025",
+    year: "2026",
     title: "Startup Experience",
     body: "Joined Robohatch — built the official production website.",
   },

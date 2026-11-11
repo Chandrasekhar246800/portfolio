@@ -25,39 +25,53 @@ export function CustomCursor() {
   const smoothX = useSpring(mouseX, SPRING_CONFIG);
   const smoothY = useSpring(mouseY, SPRING_CONFIG);
 
+  // If user requests reduced motion, lock to instantaneous coordinates rather than suppressing the cursor
+  const cursorX = reduceMotion ? mouseX : smoothX;
+  const cursorY = reduceMotion ? mouseY : smoothY;
+
   useEffect(() => {
     setMounted(true);
 
-    const pointerMedia = window.matchMedia("(pointer: coarse)");
-    const updateDeviceType = () => {
-      const touch = pointerMedia.matches || window.innerWidth < 768;
-      setIsTouch(touch);
-      if (touch || reduceMotion) {
-        document.documentElement.classList.remove("cursor-none-all");
-      } else {
-        document.documentElement.classList.add("cursor-none-all");
-      }
-    };
-
-    updateDeviceType();
-    pointerMedia.addEventListener("change", updateDeviceType);
-    window.addEventListener("resize", updateDeviceType);
+    // Initial check: only mark touch on small mobile screens (< 768px)
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setIsTouch(true);
+    }
 
     const onPointerMove = (e: PointerEvent) => {
+      // If an actual touch event occurs, hide custom cursor
+      if (e.pointerType === "touch") {
+        setIsTouch(true);
+        setIsVisible(false);
+        document.documentElement.classList.remove("cursor-none-all");
+        return;
+      }
+
+      // Mouse or pen pointer actively moving
+      setIsTouch(false);
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-
-      setIsVisible((prev) => (prev ? prev : true));
+      setIsVisible(true);
+      document.documentElement.classList.add("cursor-none-all");
 
       const target = e.target as HTMLElement | null;
       const interactive = !!target?.closest(INTERACTIVE_SELECTOR);
       setIsHovered((prev) => (prev !== interactive ? interactive : prev));
     };
 
-    const onMouseDown = () => setIsClicked(true);
+    const onMouseDown = (e: MouseEvent) => {
+      if (e.button === 0) setIsClicked(true);
+    };
     const onMouseUp = () => setIsClicked(false);
-    const onMouseLeave = () => setIsVisible(false);
-    const onMouseEnter = () => setIsVisible(true);
+    const onMouseLeave = () => {
+      setIsVisible(false);
+      document.documentElement.classList.remove("cursor-none-all");
+    };
+    const onMouseEnter = () => {
+      if (!isTouch) {
+        setIsVisible(true);
+        document.documentElement.classList.add("cursor-none-all");
+      }
+    };
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("mousedown", onMouseDown);
@@ -67,17 +81,15 @@ export function CustomCursor() {
 
     return () => {
       document.documentElement.classList.remove("cursor-none-all");
-      pointerMedia.removeEventListener("change", updateDeviceType);
-      window.removeEventListener("resize", updateDeviceType);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
       document.documentElement.removeEventListener("mouseleave", onMouseLeave);
       document.documentElement.removeEventListener("mouseenter", onMouseEnter);
     };
-  }, [mouseX, mouseY, reduceMotion]);
+  }, [mouseX, mouseY, isTouch]);
 
-  if (!mounted || isTouch || reduceMotion) {
+  if (!mounted || isTouch) {
     return null;
   }
 
@@ -85,22 +97,22 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Outer spring-smoothed follower ring */}
+      {/* Outer follower ring with margin centering to avoid CSS transform conflicts */}
       <motion.div
         style={{
-          x: smoothX,
-          y: smoothY,
+          x: cursorX,
+          y: cursorY,
         }}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -ml-4 -mt-4 h-8 w-8"
       >
         <motion.div
           animate={{
             scale: targetScale,
             opacity: isVisible ? 1 : 0,
           }}
-          transition={{ duration: 0.15, ease: "easeOut" }}
+          transition={{ duration: reduceMotion ? 0.05 : 0.15, ease: "easeOut" }}
           className={cn(
-            "h-8 w-8 rounded-full border backdrop-blur-[1px] transition-colors duration-200",
+            "h-full w-full rounded-full border backdrop-blur-[1px] transition-colors duration-200",
             isHovered
               ? "border-primary/80 bg-primary/25 shadow-[0_0_20px_-3px_color-mix(in_oklab,var(--primary)_60%,transparent)]"
               : "border-primary/50 bg-primary/10",
@@ -118,8 +130,8 @@ export function CustomCursor() {
           opacity: isVisible ? 1 : 0,
           scale: isHovered ? 0.5 : 1,
         }}
-        transition={{ duration: 0.15 }}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent"
+        transition={{ duration: reduceMotion ? 0.05 : 0.15 }}
+        className="pointer-events-none fixed left-0 top-0 z-[9999] -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-accent"
       />
     </>
   );

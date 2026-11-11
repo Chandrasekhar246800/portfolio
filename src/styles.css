@@ -1,5 +1,4 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -343,10 +342,8 @@
   animation: shimmer 2.4s linear infinite;
 }
 
-/* Hide native cursor when custom cursor is active (desktop) */
-@media (hover: hover) and (pointer: fine) {
-  .cursor-none-all,
-  .cursor-none-all * {
-    cursor: none !important;
-  }
+/* Hide native cursor when custom cursor is active (managed dynamically by CustomCursor) */
+.cursor-none-all,
+.cursor-none-all * {
+  cursor: none !important;
 }

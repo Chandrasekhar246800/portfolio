@@ -469,10 +469,10 @@ function CaseStudyModal({ p, onClose }: { p: Project; onClose: () => void }) {
                     type="button"
                     onClick={onClose}
                     className="group inline-flex items-center gap-2 rounded-full border border-border/80 bg-surface/80 px-3.5 py-1.5 text-xs font-medium text-foreground backdrop-blur-md transition-all duration-200 hover:border-accent/50 hover:bg-surface hover:text-white hover:shadow-[0_0_24px_-4px_rgba(20,241,149,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
-                    aria-label="Close case study"
+                    aria-label="Close case study and return to projects"
                   >
-                    <X className="h-3.5 w-3.5 font-semibold transition-transform duration-200 group-hover:rotate-90" />
-                    <span>Close</span>
+                    <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
+                    <span>Back to Projects</span>
                     <kbd className="hidden sm:inline-flex h-4 items-center rounded border border-border/80 bg-background/80 px-1.5 font-mono text-[10px] text-muted-foreground">
                       Esc
                     </kbd>

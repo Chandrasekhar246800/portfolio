@@ -112,7 +112,7 @@ export function CustomCursor() {
           }}
           transition={{ duration: reduceMotion ? 0.05 : 0.15, ease: "easeOut" }}
           className={cn(
-            "h-full w-full rounded-full border backdrop-blur-[1px] transition-colors duration-200",
+            "h-full w-full rounded-full border transition-colors duration-200",
             isHovered
               ? "border-primary/80 bg-primary/25 shadow-[0_0_20px_-3px_color-mix(in_oklab,var(--primary)_60%,transparent)]"
               : "border-primary/50 bg-primary/10",
